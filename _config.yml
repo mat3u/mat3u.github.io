@@ -17,3 +17,6 @@ highlighter: true
 permalink: pretty
 
 paginate: 5
+
+# Google Analytics
+tracking_id: "UA-58896348-1" 
