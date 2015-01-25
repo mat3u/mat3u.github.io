@@ -6,10 +6,15 @@
 
 
 // Our variables
-$base-font-family: Helvetica, Arial, sans-serif;
+$base-font-family: 'Segoe UI', Helvetica, sans-serif;
+$header-font-family: 'Merriweather Sans';
+$source-font-family: Consolas, 'Ubuntu Mono', monospace;
+
 $base-font-size:   16px;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
+
+$header-color: #444;
 
 $spacing-unit:     30px;
 
