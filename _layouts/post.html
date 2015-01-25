@@ -12,4 +12,9 @@ layout: default
     {{ content }}
   </article>
 
+  {% if page.comments %}
+    {% include disqus.html %}
+  {% else %}
+    <!-- Comments disabled -->
+  {% endif %}
 </div>

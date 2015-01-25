@@ -18,5 +18,16 @@ permalink: pretty
 
 paginate: 5
 
-# Google Analytics
-tracking_id: "UA-58896348-1" 
+# External systems
+tracking_id: "UA-58896348-1"
+#disqus_id: ""
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      author: "Matt Stasch"
+      layout: "post"
+      comments: true
