@@ -1,17 +1,16 @@
 # Site settings
 title: Matt Stasch
-#email: contact@mattstasch.net
 email: matt.stasch@outlook.com
 description: > # this means to ignore newlines until "baseurl:"
   Programming, hacking, maybe hardware... basically stuff! :D
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://mattstasch.net" # the base hostname & protocol for your site
+baseurl: ""
+url: "http://mattstasch.net"
 twitter_username: mattstasch
 github_username:  mat3u
 
 # Build settings
 markdown: kramdown
-highlighter: true
+highlighter: pygments
 
 # Permalinks
 permalink: pretty
