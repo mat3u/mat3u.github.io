@@ -19,7 +19,7 @@ paginate: 5
 
 # External systems
 tracking_id: "UA-58896348-1"
-#disqus_id: ""
+disqus_id: "mattstasch"
 
 defaults:
   -
