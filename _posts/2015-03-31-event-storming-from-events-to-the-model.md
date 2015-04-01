@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Event Storming - from events to the model
-categories: ["Event Storming", DDD, Modelling]
-date: 2015-03-04 22:34
+categories: ["Event Storming", "DDD", Modelling]
+date: 2015-03-31 22:34
 ---
 
 I bet that all of us, developers, at least once started thinking about a domain model from designing data structures. This way of modelling applied to the complex domain almost always leads us to the solution that is not really effective in dealing with business cases. Moreover it is far from representing the real business domain - it represents a projection that is focused on our data store. The classical way of "producing" models for business domains treats events as a side effects of technical flows, not as a domain's first class citizens. In the "event storming" domain modelling starts from events, which are assumed to be key points of **business workflows**. The rest of the domain is built to support events.
