@@ -19,6 +19,7 @@ paginate: 5
 
 # External systems
 tracking_id: "UA-58896348-1"
+hostname: "mattstasch.net"
 disqus_id: "mattstasch"
 
 defaults:
