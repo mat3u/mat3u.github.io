@@ -15,8 +15,8 @@ layout: null
       <item>
         <title>{{ post.title | xml_escape }}</title>
         <description>
-            {{ post.content | split:'<!--more-->' | first | xml_escape }}
-        
+            {{ post.content | split: '<!--skip-->' | last | split:'<!--more-->' | first | xml_escape }}
+
             {% if post.content contains '<!--more-->' %}
             ...
             {% endif %}

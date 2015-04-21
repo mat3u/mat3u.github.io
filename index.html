@@ -15,7 +15,7 @@ layout: default
             <span class="post-date post-meta">{{ post.date | date_to_string }}</span>
 
             <span class="post-content">
-                {{ post.content | split:'<!--more-->' | first }}
+                {{ post.content | split: '<!--skip-->' | last | split:'<!--more-->' | first }}
             </span>
             {% if post.content contains '<!--more-->' %}
             <a href="{{ post.url }}" class="read-more">read more</a>
