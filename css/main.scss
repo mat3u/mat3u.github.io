@@ -12,11 +12,11 @@ $source-font-family: Consolas, 'Ubuntu Mono', monospace;
 
 $base-font-size:   18px;
 $small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$base-line-height: 1.4;
 
 $header-color: #444;
 
-$base-page-width:  1000px;
+$base-page-width:  900px;
 $spacing-unit:     30px;
 
 $text-color:       #111;
@@ -28,7 +28,7 @@ $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
 
 $on-palm:          600px;
-$on-laptop:        1000px;
+$on-laptop:        900px;
 
 
 
@@ -51,5 +51,6 @@ $on-laptop:        1000px;
 @import
         "base",
         "layout",
-        "syntax-highlighting"
+        "syntax-highlighting",
+        "misc"
 ;
