@@ -102,7 +102,7 @@ public static class BuilderExtensions
 }
 {% endhighlight %}
 
-What is happening? I'm simply registering base type with name: `{InterfaceTypeName}-0` and following decorators as `{InterfaceTypeName-i}`. Last decorator is registered as interface that will requested to be injected. In this particular case it looks as follows:
+What is happening? I'm simply registering base type with name: `{InterfaceTypeName}-0` (line 16) and following decorators as `{InterfaceTypeName-i}` (lines 18-30). Last decorator is registered as interface that will requested to be injected (lines 32-36). In this particular case it looks as follows:
 
 | Type | | Name |
 |------|-|------|
