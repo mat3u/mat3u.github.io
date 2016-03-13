@@ -13,7 +13,7 @@ markdown: kramdown
 highlighter: pygments
 
 # Permalinks
-permalink: pretty
+permalink: /:year/:month/:title
 
 paginate: 5
 
