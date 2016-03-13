@@ -2,8 +2,8 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
-    border-bottom: 1px solid $grey-color-light;
+    //border-top: 5px solid $grey-color-dark;
+    //border-bottom: 1px solid $grey-color-light;
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
@@ -13,6 +13,7 @@
 
 h1, h2, h3, h4, h5, h6 {
     font-family: $header-font-family;
+    font-weight: bold;
 }
 
 .site-title {
@@ -23,6 +24,8 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: -1px;
     margin-bottom: 0;
     float: left;
+
+    display: none;
 
     &,
     &:visited {
@@ -200,7 +203,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .post {
-    margin-bottom: 2em;
+    margin-bottom: 4em;
+}
+
+.posts {
+    margin-top: 150px;
 }
 
 /**
