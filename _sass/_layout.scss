@@ -8,6 +8,11 @@
 
     // Positioning context for the mobile navigation icon
     position: relative;
+
+    margin-bottom: 200px;
+    @include media-query($on-palm) {
+      margin-bottom: 20px;
+    }
 }
 
 
@@ -203,11 +208,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .post {
-    margin-bottom: 4em;
-}
-
-.posts {
-    margin-top: 150px;
+    margin-bottom: 6em;
 }
 
 /**

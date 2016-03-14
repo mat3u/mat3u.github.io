@@ -4,7 +4,7 @@ categories: [DI,C#,Programming]
 date: 2016-01-08 20:33
 ---
 
-Today I was setting up an infrastructure for a new project and I met the same problem I used to met couple times before - configuring injection of `CommandDispatcher` with decorators in Autofac don't look well nor it's easy to read. So I wrote extension methods to simplify future usage of decorators in Autofac. 
+Today I was setting up an infrastructure for a new project and I met the same problem I used to met couple times before - configuring injection of `CommandDispatcher` with decorators in Autofac don't look well nor it's easy to read. So I wrote extension methods to simplify future usage of decorators in Autofac.
 
 <!--more-->
 
@@ -104,12 +104,14 @@ public static class BuilderExtensions
 
 What is happening? I'm simply registering base type with name: `{InterfaceTypeName}-0` (line 16) and following decorators as `{InterfaceTypeName-i}` (lines 18-30). Last decorator is registered as interface that will requested to be injected (lines 32-36). In this particular case it looks as follows:
 
+
 | Type | | Name |
 |------|-|------|
 | `CommandDispatcher` |  -> |`ICommandDispatcher-0` |
 | `TransactionalCommandDispatcherDecorator` | -> | `ICommandDispatcher-1` |
 | `LoggingCommandDispatcherDecorator` | |  |
 
+<br/>
 If for some reason default value of `keyBase` (name of `TInterace`) don't work in your case, you can easily specify other value during registration.
 In this approach all external dependencies will be resolved as usually at every level of this decorator chain.
 

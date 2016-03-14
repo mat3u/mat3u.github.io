@@ -8,9 +8,11 @@ url: "http://mattstasch.net"
 twitter_username: mattstasch
 github_username:  mat3u
 
+gems: [jekyll-paginate]
+
 # Build settings
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 
 # Permalinks
 permalink: /:year/:month/:title
