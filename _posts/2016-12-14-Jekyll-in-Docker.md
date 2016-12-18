@@ -41,7 +41,7 @@ But this is very inconvenient, so it is simpler to bind the port from docker to 
 docker run -p 8000:4000 -v /home/mat3u/Blog:/srv/jekyll jekyll/jekyll
 ```
 
-This `-p 8000:4000` means that I want my local port 8000 to points to port 4000 of the running container. After executing this command we should be able to open [`http://localhost:8000`](http://localhost:8000)].
+This `-p 8000:4000` means that I want my local port 8000 to points to port 4000 of the running container. After executing this command we should be able to open [`http://localhost:8000`](http://localhost:8000).
 
 Basically, that is all that is needed to effectively work with Jekyll without bloating our system. To simplify my life and not write this command every time I'm working on my blog (even if it is not very often) I'll wrap it up into the script and put it in `~/.bin/jekyll`. Here is the script:
 
