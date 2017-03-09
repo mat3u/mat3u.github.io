@@ -1,15 +1,17 @@
 ---
 title: Domain Events - how to handle reality!
 categories: [DDD, Events, Architecture]
-date: 2017-01-01 20:01:12
+date: 2017-01-23 20:01:12
 ---
+
+<!--more-->
 
 # What it is not?
 # What it really is?
 
 There is a great definition of what really domain event is:
 
-> Domain Event is something that happened that domain experts care about. (Anonymous?)
+> Domain Event is something that happened that domain experts care about. - Anonymous
 
 As you can see this definition is strictly non-technical and that is the beauty of Domain Events. This is a technical concept with deep technical effects in application and architecture itself and still can be defined without any technical references. It is like that because the main value that it introduces to the application comes from the understanding of the problem at the business level. The good event is comaptible with the mental model of the problem of domain expert. The technical consequences - like doing something in reaction on event - works well only when events are modelled correctly.
 
