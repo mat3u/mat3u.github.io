@@ -23,11 +23,11 @@ Basically, we can say that CQRS is an implementation of Command Query Separation
 While the first steps are not fulfilling my definition of CQRS (but are sometimes so called), they can still introduce some real value to your software. Each step introduces some interesting ideas that may help to structure or clean your codebase/architecture.
 Usually, our journey starts with something that looks like this:
 
-![Diagram of classic N-Layer architecture.](https://dl.dropboxusercontent.com/u/137842/mattstasch.net/CQRS_Simple_architecture/1_layered.png)
+![Diagram of classic N-Layer architecture.](/assets/CQRS_Simple_architecture/1_layered.png)
 
 This is typical N-Layer architecture as all of us probably know. If we want to add some CQS here, we can „simply” separate business logic into Commands and Queries:
 
-![Separated Commands and Queries with shared domain model](https://dl.dropboxusercontent.com/u/137842/mattstasch.net/CQRS_Simple_architecture/2_CQS_1.png)
+![Separated Commands and Queries with shared domain model](/assets/CQRS_Simple_architecture/2_CQS_1.png)
 
 If you are working with legacy codebase this is probably the hardest step as separating side-effects from reads in spaghetti code is not easy. In the same time this step is probably the most beneficial one; it gives you an overview where your side effects are performed.
 
@@ -43,17 +43,17 @@ Going back to the diagram, I need to clarify one more thing; I’ve smuggled her
 
 OK, now we can add new command or write new query. After short period of time it will be quite obvious that Domain Model that works well for writing is not necessarily perfect for reading. It is not a huge discovery that it would be easier to read data from some specialized model:
 
-![Separated READ and WRITE models](https://dl.dropboxusercontent.com/u/137842/mattstasch.net/CQRS_Simple_architecture/3_CQS_WRITE_READ.png)
+![Separated READ and WRITE models](/assets/CQRS_Simple_architecture/3_CQS_WRITE_READ.png)
 
 We can introduce separated model, mapped by ORM and use it to build our queries, but in some scenarios, especially when ORM introduces overhead, it would be useful to simplify this architecture:
 
-![Queries can retrieve data directly from database](https://dl.dropboxusercontent.com/u/137842/mattstasch.net/CQRS_Simple_architecture/4_CQS_NoREAD.png)
+![Queries can retrieve data directly from database](/assets/CQRS_Simple_architecture/4_CQS_NoREAD.png)
 
 I think that this particular change should be well thought out!
 Now the problem is that we still have READ and WRITE model separated only at the logical level as both of them shares common database. That means we have separated READ model but most likely it is virtualized by some DB Views, in better case Materialized Views. This solution is OK if our system is not suffering from performance issues and we remember to update our queries along with WRITE model changes.
 The next step is to introduce fully separated data models:
 
-![CQRS – READ model is updated by events](https://dl.dropboxusercontent.com/u/137842/mattstasch.net/CQRS_Simple_architecture/5_CQRS.png)
+![CQRS – READ model is updated by events](/assets/CQRS_Simple_architecture/5_CQRS.png)
 
 From my point of view this is the first model that fulfills original idea presented by Greg Young, now we can call it CQRS. But there is also a catch! I’ll write about it later.
 
@@ -61,7 +61,7 @@ From my point of view this is the first model that fulfills original idea presen
 
 Event Sourcing is an idea that was presented along with CQRS, and is often identified as a part of CQRS. The idea of ES is simple: our domain is producing [events](http://martinfowler.com/eaaDev/DomainEvent.html) that represent every change made in system. If we take every event from the beginning of the system and replay them on initial state, we will get to the current state of the system. It works similarly to transactions on our bank accounts; we can start with empty account, replay every single transaction and (hopefully) get the current balance. So, if we have stored all events, we can always get the current state of the system.
 
-![CQRS with Event Sourcing](https://dl.dropboxusercontent.com/u/137842/mattstasch.net/CQRS_Simple_architecture/6_CQRS_ES.png)
+![CQRS with Event Sourcing](/assets/CQRS_Simple_architecture/6_CQRS_ES.png)
 
 While ES is a great method to store the state of the system is not necessarily required in CQRS. For CQRS, it is not important how Domain Model is actually stored and this is just one of options.
 
