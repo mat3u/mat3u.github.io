@@ -25,7 +25,7 @@ docker run -v /home/mat3u/Blog:/srv/jekyll jekyll/jekyll
 
 This command should run docker with Jekyll and blog mounted where it should be. The parameter `-v /home/mat3u/Blog:/srv/jekyll` means that I want to mount my local directory `/home/mat3u/Blog` inside of running container at `/srv/jekyll` path. This `/srv/jekyll` path was arbitrary chosen work directory by the creators of this image. It can be changed when running container.
 
-![Docker running](https://dl.dropboxusercontent.com/u/137842/mattstasch.net/Docker_Jekyll/01.png)
+![Docker running](/assets/posts/Docker_Jekyll/01.png)
 
 As you can see I did some changes in the post and Jekyll automatically regenerated content, so I guess everything is working as expected. But when I'll try to access `http://localhost:4000` I'll get information that no one is listening on this port. This is because this port is exposed on running container on my machine. As every running docker container obtains their own IP address and we can use it to access served page. To check the IP you can use the following command:
 
