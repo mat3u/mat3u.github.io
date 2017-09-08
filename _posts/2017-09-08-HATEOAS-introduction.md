@@ -4,9 +4,9 @@ categories: [Architecture, REST, HATEOAS]
 date: 2017-09-08 21:14
 ---
 
-# HATEOAS - introduction
-
 In a couple of my previous projects, I was on the way to make *true [REST][REST]* API. By "true REST" (irony assumed) I mean REST on the third level of [Richardson Maturity Model][RICHARDSON]. After those projects, I'm amazed by idea of [**HATEOAS**][WIKI] (even if resulting API is not the REST at all).
+
+<!--more-->
 
 <small>In following examples I'll use JSON as data representation, but the serialization method is orthogonal to the problem. In fact, XML will be even more suitable to represent links.</small>
 
@@ -94,7 +94,11 @@ Crawler was stateful to make sure that its restarts are not breaking synchroniza
 While the previous example might be a little bit exotic for many of you the one I'll show now should be very well known. Let's imagine that you are writing simple document management system, your task is to add `[DELETE]` button to the document preview form. The button should be only enabled if a document is not deleted (you can see deleted documents) and a user has rights to do so. What will be the naïve (and most common) implementation? It will look like this:
 
 ```javascript
-<Button action={this.deleteThisThing} enabled={!this.resource.isDeleted && this.user.roles.contains(ROLE.editor) && otherCondition && !blaBlaBla}>Delete</Button>
+<Button action={this.deleteThisThing}
+        enabled={!this.resource.isDeleted 
+               && this.user.roles.contains(ROLE.editor) 
+               && otherCondition 
+               && !blaBlaBla}>Delete</Button>
 ```
 
  Have you ever had a feeling that when writing such code you are missing the point? This code is very error prone, if the logic that decides who can delete the document or under what circumstances will change, then a developer will be responsible to find all places where this logic is duplicated and change it. If he'll skip one place or change this logic in a different way, we have a bug. This is the expensive way of writing software, which on the first sight seems to be the cheap one!
@@ -102,7 +106,8 @@ While the previous example might be a little bit exotic for many of you the one 
 This is what I was doing for years in my projects, but always I had that feeling that there is a better option. And, yes, no surprise - HATEOAS! Using links to determine what action should be available to the user and which is illegal, simplifies a lot in client applications. The front-end implementation is then fairly simple:
 
 ``` javascript
-<Button action={this.getDeleteHandler(this.resource.links.get("delete")) enabled={this.resource.links.has("delete")}}>
+<Button action={this.getDeleteHandler(this.resource.links.get("delete"))
+        enabled={this.resource.links.has("delete")}}>
 ```
 
 This can be even wrapped with some better abstraction to make it more readable. What is even more interesting, the user will not be able to perform such operation by simply enabling control that is triggering it, because this control won't have a URI and method to perform this action. It doesn't know where to send the request to do this operation. That is why I'm generating handler rather just passing it.
