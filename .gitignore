@@ -4,3 +4,6 @@ _site
 
 # Drafts
 _drafts
+
+# VS Code
+.vscode
