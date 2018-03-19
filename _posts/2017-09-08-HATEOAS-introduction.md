@@ -50,9 +50,9 @@ How can it be useful? I'm not moving my resources anywhere! My API is stable! Le
 I'm going to show you two examples from my previous projects. They might be not suitable for you, but I hope it will show you how useful HATEOAS is.
 
 ## The Crawler
-In the first project in which I was using HATEOAS (and REST in fact) for months I was implementing rich REST API with links, E-Tags and tons of other stuff from scratch in Node.js (not my decision ;). When I was writing the whole infrastructure to support HATEOAS I have a strange feeling that it might be overkill and no one will ever use it. Fortunately, I was responsible to write one of core components that benefit from HATEOAS.
+In the first project in which I met HATEOAS (and REST in fact) I was implementing rich REST API with links, E-Tags and tons of other stuff from scratch... in Node.js (not my decision ;). When I was writing the whole infrastructure to support HATEOAS I had a strange feeling that it might be overkill and no one will ever use it. Fortunately, I was responsible to write one of the core components and first one that actually will benefit from HATEOAS.
 
-But one of our use case required to search documents, and we have chosen ElasticSearch to do the work. But ES wasn't out main data storage, so there was requirement to synchronize all documents to ES. The first thought is to push the changed document to some queue and put it in ES. For good reasons, we were not using any queues at all in the infrastructure. This post is not a place to discuss that. The idea that was already battle-tested by our *Architect* in previous projects was to poll data rather push it.
+The use case was document search, and we have chosen ElasticSearch to do the job. But ES wasn't our main data storage, so there was requirement to synchronize all documents to ES. The first thought is to push the changed document to some queue and put it in ES. For good reasons, we were not not allowed to use any queues in the infrastructure. This post is not a place to discuss that. The idea that was already battle-tested by our *Architect* in previous projects was to poll data rather push it.
 
 The main component that was doing the work was a **Crawler**. The idea was simple:
 
@@ -76,7 +76,7 @@ The main component that was doing the work was a **Crawler**. The idea was simpl
     ]
 }
 ```
-Is possible that the page will be empty and the `next` link may be the same as initial one. The crawling process will be continued.
+Is possible that the page will be empty and the `next` link may be the same as initial one, is such case the crawling process will be continued after some sleep time.
 
 3. Push documents to ES and go to next page
 4. Go to point 1
