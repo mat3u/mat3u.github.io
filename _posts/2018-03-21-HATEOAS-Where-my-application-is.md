@@ -34,7 +34,7 @@ It may seem like a bug not a feature to use resolve, but let’s look at it from
 
 So, should I change my href to `/product/books?afterId=6521`? Well, if you want to stick with relative links: YES (or no)! In each case you have to know how your service is exposed to the world!
 
-##How to determine where am I?
+## How to determine where am I?
 
 Like for all questions stated in this post for this one also is a couple of potential answers:
 ### Put PREFIX/BASE_PATH in the configuration
