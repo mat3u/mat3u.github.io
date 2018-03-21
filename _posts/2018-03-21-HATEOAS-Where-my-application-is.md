@@ -9,7 +9,7 @@ Building software that is *HATEOAS* enabled is a challenging task. There is limi
 
 In this part of the series I’ll be talking about the links - how do we know how this link should actually look like? How do we even know how our application is visible to the world?
 
-<!--more -->
+<!--more-->
 
 ## How to build link that actually points to our application ;) 
 This problem may sound funny, but it is real! Let’s look at following example:
