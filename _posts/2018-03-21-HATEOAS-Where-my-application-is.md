@@ -32,11 +32,12 @@ Well, developers has done a good job (sic!) and used `url.resolve(config.baseUrl
 
 It may seem like a bug not a feature to use resolve, but let’s look at it from the perspective of growing system: you can return in href anything that follows those well known rules and get predictable results according to well known algorithm. Alternatively, you can base on custom algorithm (concat in this case) that may vary between services/clients - I’m not arguing that it is not OK for small projects, but still can be source of security breach.
 
-So, should I change my href to `/product/books?afterId=6521`? Well, if you want to stick with relative links: YES (or no)! In each case you have to know how your service is exposed to the world!
+So, should I change my `href` to `/product/books?afterId=6521`? Well, if you want to stick with relative links: YES (or no)! In each case you have to know how your service is exposed to the world!
 
 ## How to determine where am I?
 
 Like for all questions stated in this post for this one also is a couple of potential answers:
+
 ### Put PREFIX/BASE_PATH in the configuration
 As simple as, add `config.uriPrefix` and use it to build the URIs. It is very simple and not bad for small systems. Has a couple of obvious cons: works only for single prefix, you need to prepare this parameter before deployment and redeploy if presented system structure was changed on LB level.
 
