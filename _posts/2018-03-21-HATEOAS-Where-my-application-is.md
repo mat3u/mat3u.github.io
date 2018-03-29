@@ -30,7 +30,7 @@ Now, our application is visible under `http://testing.local` and everything is w
 
 Well, developers has done a good job (sic!) and used `url.resolve(config.baseUrl, link[‘next’].href)` instead of nasty hack `config.baseUrl + link[‘next’].href`. In result resolve translates our `https://company.com/product and /books?after…` to `https://company.com/books?after…` . Wow, what? Why is that? Because this is how browsers are doing it to avoid ambiguity (you can find the algorithm [here](https://softwareengineering.stackexchange.com/a/324408)). 
 
-It may seem like a bug not a feature to use resolve, but let’s look at it from the perspective of growing system: you can return in href anything that follows those well known rules and get predictable results according to well known algorithm. Alternatively, you can base on custom algorithm (concat in this case) that may vary between services/clients - I’m not arguing that it is not OK for small projects, but still can be source of security breach.
+It may seem like a bug not a feature to use resolve, but let’s look at it from the perspective of growing system: you can return in `href` anything that follows those well known rules and get predictable results according to well known algorithm. Alternatively, you can base on custom algorithm (concat in this case) that may vary between services/clients - I’m not arguing that it is not OK for small projects, but still can be source of security breach.
 
 So, should I change my `href` to `/product/books?afterId=6521`? Well, if you want to stick with relative links: YES (or no)! In each case you have to know how your service is exposed to the world!
 
