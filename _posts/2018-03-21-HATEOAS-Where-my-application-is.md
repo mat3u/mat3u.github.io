@@ -5,14 +5,14 @@ date: 2018-03-21 08:49
 ---
 
 
-Building software that is *HATEOAS* enabled is a challenging task. There is limited number of frameworks/libraries that supports the fight. Additionally,  good design of our domain should be even better - to build relevant link we need to introspect the state of the domain and context of request. And this is just the tip of an iceberg.
+Building a software that is *HATEOAS* enabled is a challenging task. There is limited number of frameworks/libraries that supports the fight. Additionally, good design of our domain should be even better - to build relevant link we need to introspect the state of the domain and the context of request. And this is just the tip of an iceberg.
 
-In this part of the series I’ll be talking about the links - how do we know how this link should actually look like? How do we even know how our application is visible to the world?
+In this part of the series I’ll be talking about links - how do we know how link should look like? How do we even know how our application is visible to the world?
 
 <!--more-->
 
-## How to build link that actually points to our application ;) 
-This problem may sound funny, but it is real! Let’s look at following example:
+## How to build link that points to our application ;) 
+This problem may sounds funny, but it is real! Let’s look at following example:
 
 Standard case right now, backend application with *HATEOAS* and SPA client. From the backend we are naively returning relative (to our service) links to resources (I’ll skip versioning for simplicity):
 
@@ -32,7 +32,7 @@ Well, developers has done a good job (sic!) and used `url.resolve(config.baseUrl
 
 It may seem like a bug not a feature to use resolve, but let’s look at it from the perspective of growing system: you can return in `href` anything that follows those well known rules and get predictable results according to well known algorithm. Alternatively, you can base on custom algorithm (concat in this case) that may vary between services/clients - I’m not arguing that it is not OK for small projects, but still can be source of security breach.
 
-So, should I change my `href` to `/product/books?afterId=6521`? Well, if you want to stick with relative links: YES (or no)! In each case you have to know how your service is exposed to the world!
+So, should I change my `href` to `/product/books?afterId=6521`? Well, if you want to stick with relative links: YES (or no)! In each case you must know how your service is exposed to the world!
 
 ## How to determine where am I?
 
@@ -47,13 +47,13 @@ It is important that in case of REST, resources should have unique (and single) 
 
 Unfortunately, I don’t know about any standardized way to do so. There is [`Forwarded`](https://tools.ietf.org/html/rfc7239#section-4) header which is designed to send to you information that may be lost due to proxy on pipe. But… it is not sending all data that was lost :). It can send the content of the `Host` header that was sent by client, it can send protocol, but if your service is not mounted to the root of the host you are doomed (or you have to mitigate this problem manually).
 
-In one of my previous projects a custom header `X-Forwarded-BasePath` was used along with other `X-Forwarded-*` headers. Having such set of headers makes it pretty easy to determine how URI should look a like:
+In one of my previous projects a custom header `X-Forwarded-BasePath` was used along with other `X-Forwarded-*` headers. Having such set of headers makes it easy to determine how URI should look alike:
 
 `<X-Forwarded-Proto>://<X-Forwarded-Host>:<X-Forwarded-Port or derive from X-Forwarded-Proto>`**`/<X-Forwarded-BasePath>/<relative in app path>`**
 
-In case of relative link you can use just **emphasised parts** - resulting link will be relative to root of the external host - not relative to your application - it is very important to keep this in mind when using such links.
+In case of relative link, you can use just **emphasized parts** - resulting link will be relative to root of the external host - not relative to your application - it is very important to keep this in mind when using such links.
 
-The configuration was as simple as adding this header on the external gateway of the system (while dropping any `X-Forwarded-*` header that some malicious client might send) and pass those headers on the way. Example for nginx:
+The configuration was as simple as adding this header on the external gateway of the system (while dropping any `X-Forwarded-*` header that some malicious client might send) and pass those headers on the way. Example for *nginx*:
 
 ```nginx
 proxy_set_header  Host                  $http_host;
@@ -63,7 +63,7 @@ proxy_set_header  X-Forwarded-For       $proxy_add_x_forwarded_for;
 Proxy_set_header  X-Forwarded-BasePath  "${http_x_forwarded_basepath}/api/mnt/point";
 ```
 
-Funny is that Forwared header has worse support in tooling (i.e. [nginx](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)) than its non-standardized predecessor: `X-Forwarded-*`.
+Funny is that `Forwared` header has worse support in tooling (i.e. [*nginx*](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)) than its non-standardized predecessor: `X-Forwarded-*`.
 
 ## Should I use absolute or relative URI?
 
@@ -75,9 +75,9 @@ Right now, I’m using full links by default in my projects - no (known) issues.
 
 ## It is widely implemented in every web framework, right?
 
-Well, there is no standard implementation for ASP.NET Core and for ASP.NET WebAPI 2 - maybe there are some libraries I don’t know. Django and couple of Node.js web frameworks supports those headers by libraries, Spring has support for the “standardier” headers (`X-Forwarded-*` except `BasePath`).
+Well, there is no standard implementation for ASP.NET Core and for ASP.NET WebAPI 2 - maybe there are some libraries I don’t know. Django and couple of Node.js web frameworks support those headers by libraries, Spring has support for the “standardier” headers (`X-Forwarded-*` except `BasePath`).
 
-This is why I’ve written my own piece of code to do the job:
+Therefore, I’ve written my own piece of code to do the job:
 
 ```csharp
 public class ForwardedHandler : DelegatingHandler
