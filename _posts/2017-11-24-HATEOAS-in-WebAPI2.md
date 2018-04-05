@@ -8,7 +8,7 @@ In [previous post]({{ site.baseurl }}{% post_url 2017-09-08-HATEOAS-introduction
 
 <!--more-->
 
-ASP.NET WebAPI 2 does not offer any native support for hypermedia and when I was using it recently there were no comprehensive library (or I didn't found it) that would offer everything one may need to work with Hypermedia. Yet, there are some libraries that may be useful. One of them is [Hyprlinkr (by Ploeh)](https://github.com/ploeh/Hyprlinkr), it is a helper library that is focused on creating links to particular methods in controllers in safe and convenient way. I'll be using it in following examples.
+ASP.NET WebAPI 2 does not offer any native support for hypermedia and when I was using it recently there were no comprehensive library (or I didn't find it) that would offer everything one may need to work with Hypermedia. Yet, there are some libraries that may be useful. One of them is [Hyprlinkr (by Ploeh)](https://github.com/ploeh/Hyprlinkr), it is a helper library that is focused on creating links to particular methods in controllers in safe and convenient way. I'll be using it in following examples.
 
 HATEOAS is orthogonal to the data returned from the server, but it is in the most examples presented along RESTful resources, so I'm going to use resources in the following examples as well. I'll be using JSON as serialization format.
 
@@ -88,10 +88,10 @@ public abstract class Resource
 }
 ```
 
-I've added `[DataContract]` attribute to the class definition to control the name of the only property during serialization, but this could be achieved in many different ways. Having such "infrastructure" we can define our first "real" resource representation:
+I've added `[DataContract]` attribute to the class definition to control the name of the `Links` property during serialization, but this could be achieved in many ways. Having such "infrastructure" we can define our first "real" resource representation:
 
 ```csharp
-public class InvoiceResorce : Resource {
+public class InvoiceResource : Resource {
     public Id Id {get; set;}
     public Customer To { get; set; }
     public ProductList Products { get;set; }
@@ -161,11 +161,11 @@ public InvoiceResource Get(Id id) {
 }
 ```
 
-At this point our endpoint is sending hypermedia along with our resource to the client, but there are still some issues with this code.
+At this point, our endpoint is sending hypermedia along with our resource to the client, but there are still some issues with this code.
 
 #### In this code relations are added to the representation by hand. Is that OK?
 
-Well, as I said this is naïve implementation of hypermedia. In my real projects the decision if particular relation should be added or not depends on security policy, the state of the resource and so on. The more realistic case would look like this:
+Well, as I said this is naïve implementation of hypermedia. In my real projects the decision if particular relation should be added or not depends on security policy, the state of the resource and context of execution. The more realistic case would look like this:
 
 ```csharp
 public InvoiceResource Get(Id id) {
@@ -200,11 +200,11 @@ In this example I'm still exposing some business rules in controller which shoul
 
 #### In many examples in internet links are added automatically in generic enrichers/middlewares separated from the endpoint. Is that OK?
 
-I'd say that it is OK for very simple implementations. In real projects those links are derived from context of the resource, highly depends on the state of resource or on rights that current user have to requested resource. That is why I'm seeing middlewares as very limiting in this case. Especially if those middlewares are generic for many resource it would be hard to capture the real complexity of domain.
+I'd say that it is OK for simple implementations. In real projects those links are derived from the context of the resource, highly depends on the state of the resource or on rights that current user have to requested resource. That is why I'm seeing middlewares as very limiting in such case. Especially if those middlewares are generic for many resource it would be hard to capture the real complexity of the domain.
 
-#### How to represent collection of resources?
+#### How to represent a collection of resources?
 
-Actually collection is also a resource:
+Actually, the collection is also a resource:
 
 ```csharp
 [DataContract]
